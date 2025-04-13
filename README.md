@@ -1,7 +1,7 @@
-# SpringAI-of-Langchain4J
+# SpringAI2025
 
 #### 介绍
-大模型应用Java微服务模块整合
+spring-ai-ollama、deepseek4j、langchain4j连接大模型（diffusion_pytorch_model等）与微服务应用模块整合
 
 #### 软件架构
 软件架构说明
