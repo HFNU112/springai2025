@@ -33,6 +33,10 @@ netstat -ano | findstr 11434
 > ollama stop
 > ollama serve
 
+langchain4j官网：https://docs.langchain4j.dev/
+
+AiService是langchain4j提供调用大模型的高阶接口。
+
 
 
 #### 使用说明
