@@ -1,6 +1,6 @@
 package com.bankcomm.ai.langchain4jchataiservice.config;
 
-import com.bankcomm.ai.langchain4jchataiservice.service.ChatAssistant;
+import com.bankcomm.ai.langchain4jchataiservice.service.IChatAssistant;
 import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.model.chat.StreamingChatModel;
 import dev.langchain4j.model.openai.OpenAiChatModel;
@@ -27,8 +27,17 @@ public class LLMConfig {
                 .build();
     }
 
-    @Bean(name = "streamingChatLanguageModel")
-    public StreamingChatModel streamingChatLanguageModel() {
+//    @Bean(name = "chatLanguageModelDeepSeekR1")
+    public ChatModel chatLanguageModelByDeepSeekR1() {
+        return OpenAiChatModel.builder()
+                .apiKey("sk-869cc0141e114cbc9d63a8cf45d78606")
+                .modelName("deepseek-chat")
+                .baseUrl("https://api.deepseek.com/v1")
+                .build();
+    }
+
+    @Bean(name = "streamingChatLanguageModelByQwen")
+    public StreamingChatModel streamingChatLanguageModelByQwen() {
         return OpenAiStreamingChatModel.builder()
                 .apiKey(System.getenv("aliQwen-api"))
                 .modelName("qwen-plus")
@@ -47,22 +56,28 @@ public class LLMConfig {
                         .build();
     }
 
-    @Bean(name = "chat")
-    public ChatAssistant chat(ChatModel chatLanguageModelByQwen)
+//    @Bean(name = "chat")
+    public IChatAssistant chatByDeepSeek(ChatModel chatLanguageModelByDeepSeekR1)
     {
-        return AiServices.create(ChatAssistant.class, chatLanguageModelByQwen);
+        return AiServices.create(IChatAssistant.class, chatLanguageModelByDeepSeekR1);
     }
 
-    @Bean(name = "chatFlux")
-    public ChatAssistant chatFlux(StreamingChatModel streamingChatLanguageModel)
+    @Bean(name = "chat")
+    public IChatAssistant chat(ChatModel chatLanguageModelByQwen)
     {
-        return AiServices.create(ChatAssistant.class, streamingChatLanguageModel);
+        return AiServices.create(IChatAssistant.class, chatLanguageModelByQwen);
+    }
+
+    @Bean(name = "chatFluxByQwen")
+    public IChatAssistant chatFlux(StreamingChatModel streamingChatLanguageModelByQwen)
+    {
+        return AiServices.create(IChatAssistant.class, streamingChatLanguageModelByQwen);
     }
 
     @Bean(name = "chatFluxDeepSeek")
-    public ChatAssistant chatFlux2(StreamingChatModel streamingChatLanguageModelByDeepSeek)
+    public IChatAssistant chatFlux2(StreamingChatModel streamingChatLanguageModelByDeepSeek)
     {
-        return AiServices.create(ChatAssistant.class, streamingChatLanguageModelByDeepSeek);
+        return AiServices.create(IChatAssistant.class, streamingChatLanguageModelByDeepSeek);
     }
 
 }

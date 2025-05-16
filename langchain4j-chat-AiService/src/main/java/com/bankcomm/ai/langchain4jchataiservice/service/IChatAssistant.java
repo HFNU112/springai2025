@@ -7,7 +7,7 @@ import reactor.core.publisher.Flux;
  * @Author shunpeng_hu
  * @date 2025/5/14 0:21
  */
-public interface ChatAssistant {
+public interface IChatAssistant {
 
     /**
      * 标准版对话聊天服务
