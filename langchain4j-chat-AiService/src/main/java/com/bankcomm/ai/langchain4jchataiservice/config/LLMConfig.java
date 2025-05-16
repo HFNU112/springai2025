@@ -18,10 +18,11 @@ import java.time.Duration;
 @Configuration
 public class LLMConfig {
 
-    @Bean(name = "chatLanguageModel")
+    @Bean(name = "chatLanguageModelByQwen")
     public ChatModel chatLanguageModelByQwen() {
         return OpenAiChatModel.builder()
-                .apiKey(System.getenv("aliQwen-api"))
+//                .apiKey(System.getenv("aliQwen-api"))
+                .apiKey("sk-5379255e37154d6b8e3e40af4b5166c0")
                 .modelName("qwen-plus")
                 .baseUrl("https://dashscope.aliyuncs.com/compatible-mode/v1")
                 .build();
@@ -30,7 +31,7 @@ public class LLMConfig {
 //    @Bean(name = "chatLanguageModelDeepSeekR1")
     public ChatModel chatLanguageModelByDeepSeekR1() {
         return OpenAiChatModel.builder()
-                .apiKey("sk-869cc0141e114cbc9d63a8cf45d78606")
+                .apiKey(System.getenv("deepseek-api"))
                 .modelName("deepseek-chat")
                 .baseUrl("https://api.deepseek.com/v1")
                 .build();
@@ -39,7 +40,8 @@ public class LLMConfig {
     @Bean(name = "streamingChatLanguageModelByQwen")
     public StreamingChatModel streamingChatLanguageModelByQwen() {
         return OpenAiStreamingChatModel.builder()
-                .apiKey(System.getenv("aliQwen-api"))
+//                .apiKey(System.getenv("aliQwen-api"))
+                .apiKey("sk-5379255e37154d6b8e3e40af4b5166c0")
                 .modelName("qwen-plus")
                 .timeout(Duration.ofSeconds(60))
                 .baseUrl("https://dashscope.aliyuncs.com/compatible-mode/v1")
@@ -50,7 +52,8 @@ public class LLMConfig {
     public StreamingChatModel streamingChatLanguageModelByDeepSeek() {
 
         return OpenAiStreamingChatModel.builder()
-                        .apiKey(System.getenv("deepseek-api"))
+//                        .apiKey(System.getenv("deepseek-api"))
+                        .apiKey("sk-869cc0141e114cbc9d63a8cf45d78606")
                         .modelName("deepseek-chat")
                         .baseUrl("https://api.deepseek.com/v1")
                         .build();

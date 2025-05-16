@@ -22,7 +22,8 @@ public class AiServiceChatController {
     @Resource(name = "chat")
     private IChatAssistant chatAssistant;
 
-    @Resource(name = "chatFluxDeepSeek")
+//    @Resource(name = "chatFluxDeepSeek")
+    @Resource(name = "chatFluxByQwen")
     private IChatAssistant chatAssistantFlux;
 
     @Resource(name = "streamingChatLanguageModelByQwen")
@@ -32,8 +33,13 @@ public class AiServiceChatController {
     @GetMapping(value = "/aiservice/chat")
     public String chat(@RequestParam(name = "prompt",defaultValue = "你是谁") String prompt)
     {
-        String result = chatAssistant.chat(prompt);
-        System.out.println("---result: "+result);
+        String result = null;
+        try {
+            result = chatAssistant.chat(prompt);
+            System.out.println("---result: "+result);
+        } catch (Exception e) {
+            log.error("普通对话聊天大模型异常e:", e);
+        }
         return result;
     }
 
@@ -41,8 +47,13 @@ public class AiServiceChatController {
     @GetMapping(value = "/aiservice/chatFluxByDeepSeek")
     public Flux<String> chatFlux(@RequestParam(name = "prompt",defaultValue = "你是谁") String prompt)
     {
-        Flux<String> resultFlux = chatAssistantFlux.chatFlux(prompt);
-        System.out.println("resultFlux = " + resultFlux);
+        Flux<String> resultFlux = null;
+        try {
+            resultFlux = chatAssistantFlux.chatFlux(prompt);
+            System.out.println("resultFlux.toString() = " + resultFlux.toString());
+        } catch (Exception e) {
+            log.error("流式对话聊天大模型异常e:", e);
+        }
         return resultFlux;
     }
 
